@@ -20,13 +20,13 @@ import "./HolderRole.sol";
  * all accounts just by listening to said events. Note that this isn't required by the specification, and other
  * compliant implementations may not do it.
  */
-contract GOLDToken is ERC20, ERC20Mintable, ERC20Burnable, HolderRole {
+contract GOLDToken is ERC20, ERC20Mintable, ERC20Burnable {
     using SafeMath for uint256;
 
     HolderRole holderRoles;
 
-    constructor (address holderAddr) internal {
-        holderRoles = HolderRole(holderAddr);
+    constructor (address holdersAddr) public GOLDToken(holdersAddr) {
+        holderRoles = HolderRole(holdersAddr);
     }
     
     /**
@@ -36,7 +36,7 @@ contract GOLDToken is ERC20, ERC20Mintable, ERC20Burnable, HolderRole {
     */
     function transfer(address to, uint256 value) public returns (bool) {
         require(holderRoles.isHolder(msg.sender));
-        _transfer(msg.sender, to, value);
+        super.transfer(to, value);
         return true;
     }
 

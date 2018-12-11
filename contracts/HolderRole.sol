@@ -10,7 +10,7 @@ contract HolderRole {
 
     Roles.Role private _holders;
 
-    constructor () internal {
+    constructor () public {
         _addHolder(msg.sender);
     }
 
