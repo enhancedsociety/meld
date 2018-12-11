@@ -22,14 +22,12 @@ import "./HolderRole.sol";
  */
 contract GOLDToken is ERC20, ERC20Mintable, ERC20Burnable, HolderRole {
     using SafeMath for uint256;
-    using Roles for Roles.Role;
 
     HolderRole holderRoles;
 
     constructor (address holderAddr) internal {
         holderRoles = HolderRole(holderAddr);
     }
-    
     
     /**
     * @dev Transfer token for a specified address
