@@ -1,10 +1,10 @@
 pragma solidity ^0.4.24;
 
-import "./token/IERC20.sol";
-import "../../math/SafeMath.sol";
-import "./token/ERC20.sol";
-import "./token/ERC20Burnable.sol";
-import "./token/ERC20Mintable.sol";
+import "localhost/zeppelin/contracts/token/ERC20/IERC20.sol";
+import "localhost/zeppelin/contracts/math/SafeMath.sol";
+import "localhost/zeppelin/contracts/token/ERC20/ERC20.sol";
+import "localhost/zeppelin/contracts/token/ERC20/ERC20Burnable.sol";
+import "localhost/zeppelin/contracts/token/ERC20/ERC20Mintable.sol";
 import "./HolderRole.sol";
 
 
@@ -20,28 +20,27 @@ import "./HolderRole.sol";
  * all accounts just by listening to said events. Note that this isn't required by the specification, and other
  * compliant implementations may not do it.
  */
-contract GOLDToken is ERC20, ERC20Mintable, ERC20Burnable {
+contract GOLDToken is ERC20, ERC20Mintable, ERC20Burnable, HolderRole {
     using SafeMath for uint256;
-    using Roles for Roles.Role
+    using Roles for Roles.Role;
 
     HolderRole holderRoles;
 
     constructor (address holderAddr) internal {
-        holderRoles = HolderRole(holderaddr);
+        holderRoles = HolderRole(holderAddr);
     }
-
+    
+    
     /**
-    * @dev Transfer token for a specified addresses
-    * @param from The address to transfer from.
+    * @dev Transfer token for a specified address
     * @param to The address to transfer to.
     * @param value The amount to be transferred.
     */
-    function _transfer(address from, address to, uint256 value) internal onlyHolder {
-        require(to != address(0));
-
-        _balances[from] = _balances[from].sub(value);
-        _balances[to] = _balances[to].add(value);
-        emit Transfer(from, to, value);
+    function transfer(address to, uint256 value) public returns (bool) {
+        require(holderRoles.isHolder(msg.sender));
+        _transfer(msg.sender, to, value);
+        return true;
     }
+
 
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "./access/Roles.sol";
+import "localhost/zeppelin/contracts/access/Roles.sol";
 
 contract HolderRole {
     using Roles for Roles.Role;
