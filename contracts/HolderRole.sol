@@ -1,8 +1,9 @@
 pragma solidity ^0.4.24;
 
 import "localhost/zeppelin/contracts/access/Roles.sol";
+import "./ComplianceRole.sol";
 
-contract HolderRole {
+contract HolderRole is ComplianceRole {
     using Roles for Roles.Role;
 
     event HolderAdded(address indexed account);
@@ -14,16 +15,11 @@ contract HolderRole {
         _addHolder(msg.sender);
     }
 
-    modifier onlyHolder() {
-        require(isHolder(msg.sender));
-        _;
-    }
-
     function isHolder(address account) public view returns (bool) {
         return _holders.has(account);
     }
 
-    function addHolder(address account) public onlyHolder {
+    function addHolder(address account) public onlyCompliance {
         _addHolder(account);
     }
 
