@@ -1,4 +1,4 @@
-pragma solidity ^0.4.13;
+pragma solidity ^0.4.25;
 
 interface IERC20 {
     function totalSupply() external view returns (uint256);
