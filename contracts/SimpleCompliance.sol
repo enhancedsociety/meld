@@ -22,7 +22,7 @@ contract SimpleCompliance is Ownable {
         emit ApprovedFunds(target, freeze);
     }
 
-    // Called by ERC20 _transfer function 
+    // Called by compliant transfer function 
     modifier onlycompliant() {
         require(!frozenAccount[msg.sender]);
         require(approvedAccount[msg.sender]);
