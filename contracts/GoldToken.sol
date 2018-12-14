@@ -38,7 +38,7 @@ contract GOLDToken is
     public ERC20Detailed(name, symbol, decimals) {
         holderRoles = HolderRole(this);
         _enforceHolderlist = false;
-        _enforceBlacklist = true;
+    //    _enforceBlacklist = true;
     }
 
     /**
@@ -66,28 +66,26 @@ contract GOLDToken is
     /**
     * @dev Toggle the blacklist enforcing and return current state.
     */
-    function toggleBlacklist() public onlyCompliance returns (bool) {
-        _enforceBlacklist = !_enforceBlacklist;
-        return _enforceBlacklist;
-    }
+    // function toggleBlacklist() public onlyCompliance returns (bool) {
+    //     _enforceBlacklist = !_enforceBlacklist;
+    //    return _enforceBlacklist;
+    // }
 
     /**
     * @dev Check whether the blacklist is being enforced.
     */
-    function getEnforceBlacklist() public view returns (bool) {
-        return _enforceBlacklist;
-    }
+    // function getEnforceBlacklist() public view returns (bool) {
+    //    return _enforceBlacklist;
+    // }
 
     /**
     * @dev Check whether the address is allowed to hold the tokens.
     * @param toCheck The address to check.
     */
     function checkCompliance(address toCheck) internal view {
+        require(!isBlacklist(toCheck));
         if(_enforceHolderlist){
             require(holderRoles.isHolder(toCheck));
-        }
-        if(_enforceBlacklist) {
-            require(!isBlacklist(toCheck));
         }
 
     }
