@@ -39,7 +39,7 @@ contract GOLDSimple is ERC20Detailed, ERC20Burnable, ERC20Mintable, Ownable
 	        return _WhitelistOnly;
 	    }
 
-	    // Whitelist Status
+	    // WhitelistOnly Status
 	    function WhitelistOn() public view returns (bool) {
 	        return _WhitelistOnly;
 	    }
@@ -49,7 +49,7 @@ contract GOLDSimple is ERC20Detailed, ERC20Burnable, ERC20Mintable, Ownable
 	    require(!blacklistAccount[msg.sender]);
 	    if (_WhitelistOnly) {
             require(whitelistAccount[msg.sender]);
-        }
+        	}
 	    _;
 	    }
 
