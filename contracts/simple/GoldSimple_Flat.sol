@@ -1,4 +1,4 @@
-pragma solidity ^0.4.13;
+pragma solidity ^0.4.25;
 
 library Roles {
     struct Role {
@@ -455,15 +455,15 @@ contract SimpleCompliance is Ownable {
         emit ApprovedFunds(target, freeze);
     }
 
-    // Called by ERC20 _transfer function 
+    // Called by ERC20 _transfer function
     modifier onlycompliant() {
         require(!frozenAccount[msg.sender]);
         require(approvedAccount[msg.sender]);
         _;
     }
-    
-    
-    
+
+
+
 }
 
 contract ERC20Burnable is ERC20 {
@@ -488,11 +488,11 @@ contract ERC20Burnable is ERC20 {
 contract GOLDSimple is ERC20Detailed, ERC20Burnable, ERC20Mintable, SimpleCompliance
     {
         using SafeMath for uint256;
-        
+
         constructor (string name, string symbol, uint8 decimals)
         public ERC20Detailed(name, symbol, decimals) {
         }
-    
+
         function _complianttransfer(address to, uint256 value) onlycompliant public {
             transfer(to, value);
         }
