@@ -14,8 +14,8 @@ contract GOLDSimple is ERC20Detailed, ERC20Burnable, ERC20Mintable, Ownable, Sim
         constructor (string name, string symbol, uint8 decimals) public ERC20Detailed(name, symbol, decimals) {
         }
 
-	    // transfer
-	    function transfer(address to, uint256 value) public onlycompliant returns (bool) {
+        // transfer
+        function transfer(address to, uint256 value) public onlycompliant returns (bool) {
         checkCompliance(to);
         super.transfer(to, value);
         return true;
