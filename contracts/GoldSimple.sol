@@ -39,7 +39,7 @@ contract GOLDSimple is ERC20Detailed, ERC20Burnable, ERC20Mintable, Ownable
 	        return _WhitelistOnly;
 	    }
 
-	    // WhitelistOnly
+	    // Whitelist Status
 	    function WhitelistOn() public view returns (bool) {
 	        return _WhitelistOnly;
 	    }
