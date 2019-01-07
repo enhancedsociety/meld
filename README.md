@@ -2,7 +2,7 @@
 
 This repo is the set of contracts for the GOLD token from Meld.
 
-At its core it's a very simple token with 2 additional contracts besides the default OpenZeppelin contracts to allow for compliance checking. 
+At its core it's a very simple token using the default OpenZeppelin contracts besides 2 additional contracts to allow for compliance checking. 
 
 Blacklisting/Whitelisting exist to allow for compliance with the regulatory requirements.
 
