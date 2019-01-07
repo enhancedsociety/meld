@@ -2,7 +2,7 @@
 
 This repo is the set of contracts for the GOLD token from Meld.
 
-In at its core it's a very simple token with some slight modifications to allow for compliance checking i.e. whitelisting and blacklisting. All these address lists are managed within the token contract itself. 
+At its core it's a very simple token with 2 additional contracts besides the default OpenZeppelin contracts to allow for compliance checking. 
 
 Blacklisting/Whitelisting exist to allow for compliance with the regulatory requirements.
 
@@ -10,11 +10,15 @@ By Default the Whitelist is off and can be turned on/off by the owner based on t
 
 Any address added to the blacklist cannot send/receive the token. 
 
-There's 2 main roles accounted for in the tokens compliance contract. Each of these actors can be filled by multiple ethereum addresses, but likely will be filled by a multisig address.
+All the compliant addres lists and roles are managed within the token contract itself.
 
-1. Owner - Address holding the token that can add / remove addresses to the whitelist & blacklist. 
-2. Minter - minters can mint tokens to any compliant addresses.
+There's 2 main roles accounted for in the tokens compliance contract. 
 
+1. Owner - Address holding the token that can add / remove addresses to the whitelist & blacklist. Ownership can be renounced and transferred.
 
-Minters and Owner can only be removed by themselves (ie renunciation) so additions to these lists should be taken very seriously. The ES recommendation would be to have a multisig wallet perform duties on each of these lists.
+2. Minter - minters can mint tokens to any compliant addresses. This actor can be filled by multiple ethereum addressesif need be and can be renounced.
+
+Minters and Owner can only be removed by themselves (ie renunciation) so additions to these lists should be taken very seriously. 
+
+The ES recommendation would be to have a multisig wallet perform duties of each of these roles.
 
