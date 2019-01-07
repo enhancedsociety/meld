@@ -2,18 +2,19 @@
 
 This repo is the set of contracts for the GOLD token from Meld.
 
-In at its core it's a very simple token with some slight modifications to allow for compliance checking and blacklisting.
+In at its core it's a very simple token with some slight modifications to allow for compliance checking i.e. whitelisting and blacklisting. All these address lists are managed within the token contract itself. 
 
-All the compliance officer, blacklist and minter lists are all managed within the token contract. At present there's a list to enforce who can hold the token built in but disabled. At a later date it could be turned on or replaced entirely without adversely impacting the operation of the token.
+Blacklisting/Whitelisting exist to allow for compliance with the regulatory requirements.
 
-There's 4 main actors accounted for in these contracts. Each of these actors can be filled by multiple ethereum addresses, but likely will be filled by a multisig address.
+By Default the Whitelist is off and can be turned on/off by the owner based on their operational & legal requirements. Turning the Whitelist on only allows addresses listed in the whitelist to send/receive the token.
 
-1. Holder - anyone holding the token. Currently the holder whitelist is disabled.
-2. Blacklist - the naughty list
-3. Minter - minters can mint tokens into any holder's address (or any address if holder list is off)
-4. Compliance Officer - manage the membership of the other lists, except minters.
+Any address added to the blacklist cannot send/receive the token. 
 
-The Blacklist is on by default and the holder list is off.
+There's 2 main roles accounted for in the tokens compliance contract. Each of these actors can be filled by multiple ethereum addresses, but likely will be filled by a multisig address.
 
-Minters and Compliance officers can only be removed by themselves (ie renunciation) so additions to these lists should be taken very seriously. The ES recommendation would be to have a multisig wallet perform duties on each of these lists.
+1. Owner - Address holding the token that can add / remove addresses to the whitelist & blacklist. 
+2. Minter - minters can mint tokens to any compliant addresses.
+
+
+Minters and Owner can only be removed by themselves (ie renunciation) so additions to these lists should be taken very seriously. The ES recommendation would be to have a multisig wallet perform duties on each of these lists.
 
