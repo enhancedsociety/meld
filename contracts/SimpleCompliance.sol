@@ -5,30 +5,50 @@ import "localhost/zeppelin/contracts/ownership/Ownable.sol";
 
 contract SimpleCompliance is Ownable {
 
+    bool _WhitelistOnly = false;
 
-    // frozenAccounts
-    mapping (address => bool) public frozenAccount;
-    event FrozenFunds(address target, bool frozen);
-    function freezeAccount(address target, bool freeze) onlyOwner public {
-        frozenAccount[target] = freeze;
-        emit FrozenFunds(target, freeze);
+    // Toggle WhitelistOnly
+    function toggleWhitelist() public onlyOwner returns (bool) {
+        _WhitelistOnly = !_WhitelistOnly;
+        return _WhitelistOnly;
     }
 
-    // approvedAccounts
-    mapping (address => bool) public approvedAccount;
-    event ApprovedFunds(address target, bool frozen);
-    function approveAccount(address target, bool freeze) onlyOwner public {
-        approvedAccount[target] = freeze;
-        emit ApprovedFunds(target, freeze);
+    // Show WhitelistOn Status
+    function WhitelistOn() public view returns (bool) {
+        return _WhitelistOnly;
     }
 
-    // Called by compliant transfer function 
+    // Whitelist Accounts
+    mapping (address => bool) public whitelistAccount;
+    event Whitelisted(address target, bool whitelisted);
+    function whitelistAccount(address target, bool whitelisted) onlyOwner public {
+        whitelistAccount[target] = whitelisted;
+        emit Whitelisted(target, whitelisted);
+    }
+
+    // Blacklist Accounts
+    mapping (address => bool) public blacklistAccount;
+    event Blacklisted(address target, bool blacklisted);
+    function blacklistAccount(address target, bool blacklisted) onlyOwner public {
+        blacklistAccount[target] = blacklisted;
+        emit Blacklisted(target, blacklisted);
+    }
+
+    // Ensure Sender is compliant
     modifier onlycompliant() {
-        require(!frozenAccount[msg.sender]);
-        require(approvedAccount[msg.sender]);
-        _;
+    require(!blacklistAccount[msg.sender]);
+    if (_WhitelistOnly) {
+        require(whitelistAccount[msg.sender]);
     }
-    
-    
-    
+    _;
+    }
+
+    // CheckCompliance
+    function checkCompliance(address toCheck) internal view {
+    require(!blacklistAccount[toCheck]);
+    if (_WhitelistOnly) {
+    require(whitelistAccount[toCheck]);
+        }
+    }
+
 }

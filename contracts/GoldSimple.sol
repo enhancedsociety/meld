@@ -10,7 +10,7 @@ import "./SimpleCompliance.sol";
 contract GOLDSimple is ERC20Detailed, ERC20Burnable, ERC20Mintable, Ownable, SimpleCompliance
     {
         using SafeMath for uint256;
-
+        
         constructor (string name, string symbol, uint8 decimals) public ERC20Detailed(name, symbol, decimals) {
         }
 
