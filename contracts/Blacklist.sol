@@ -17,6 +17,11 @@ contract Blacklist is ComplianceRole {
         _;
     }
 
+    modifier notBlacklist() {
+        require(!isBlacklist(msg.sender));
+        _;
+    }
+
     function isBlacklist(address account) public view returns (bool) {
         return _blacklist.has(account);
     }
@@ -24,8 +29,8 @@ contract Blacklist is ComplianceRole {
     function addBlacklist(address account) public onlyCompliance {
         _addBlacklist(account);
     }
-    
-    function removeBlacklist(address account) public onlyCompliance {
+
+    function removeBlacklist(address account) public notBlacklist onlyCompliance {
         _removeBlacklist(account);
     }
 

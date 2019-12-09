@@ -23,16 +23,16 @@ contract HolderRole is ComplianceRole {
         _addHolder(account);
     }
 
-    function renounceHolder() public {
-        _removeHolder(msg.sender);
-    }
+    // function renounceHolder() public {
+    //     _removeHolder(msg.sender);
+    // }
 
     function _addHolder(address account) internal {
         _holders.add(account);
         emit HolderAdded(account);
     }
 
-    function _removeHolder(address account) internal {
+    function removeHolder(address account) public onlyCompliance {
         _holders.remove(account);
         emit HolderRemoved(account);
     }
